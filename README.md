@@ -1,3 +1,6 @@
+Docker image to manage OpenSSL Certificate Authority based on
+https://openssl-ca.readthedocs.io/en/latest/
+
 # global
 
 ```bash
