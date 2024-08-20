@@ -1,0 +1,25 @@
+x-common-variables: &common-variables
+  volumes:
+    - ./example:/root/ca
+    - ./root.cnf:/root/ca/openssl.cnf
+    - ./intermediate.cnf:/root/ca/intermediate/openssl.cnf
+  environment:
+    CAPASS: 3x4mple
+    ROOT_CA_SUBJECT: "/C=BR/ST=SP/L=Example/O=example/OU=example/CN=Example Root CA"
+    INT_CA_SUBJECT: "/C=BR/ST=SP/L=Example/O=example/OU=example/CN=MTZ Intermediate CA"
+
+services:
+  init:
+    image: gencas:latest
+    profiles:
+      - init
+    <<: *common-variables
+
+  sign:
+    image: gencas:latest
+    command: ["/bin/bash"]
+    profiles:
+      - sign
+    <<: *common-variables
+    tty: true
+    stdin_open: true
